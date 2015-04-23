@@ -50,25 +50,43 @@ var TaxSum = React.createClass({
     }
 });
 
+/*
+    TaxEstimator Component
+    Estimates your taxes
+    Properties: NONE
+*/
 var TaxEstimator = React.createClass({
     getInitialState: function(){
+        var opts = TaxRates.optional;
         return {
-            assessedValue:200000
+            assessedValue:200000,
+            optionalTaxes:Object.getOwnPropertyNames(opts).map(function(k){ return {tax:k, rate:opts[k], selected:undefined };})
         };
     },
-    handleChange:function(e){
+    handleChangeAssessedValue:function(e){
         this.setState({
-            assessedValue: e.target.value
+            assessedValue: e.target.value,
+            optionalTaxes:this.state.optionalTaxes
         });
+    },
+    handleSelectOption: function(e){        
+        var changedOption = this.state.optionalTaxes.filter(function(o){return o.tax==e.target.id});
+        if(changedOption && changedOption.length>0){
+            changedOption[0].selected=e.target.checked;
+            this.setState({
+                assessedValue: this.state.assessedValue,
+                optionalTaxes: this.state.optionalTaxes
+            });
+        }
     },
     render:function(){
         return (
-            <div>
+            <section>
                 <div>
                     <label for="assessedValue">Assessed Value </label>
-                    <input id="assessedValue" type="number" value={this.state.assessedValue} onChange={this.handleChange}/>
+                    <input id="assessedValue" type="number" value={this.state.assessedValue} onChange={this.handleChangeAssessedValue}/>
                 </div>
-                <section>                    
+                <div>                    
                     <table className="tax-rate-table">
                         <thead>
                             <tr>
@@ -87,9 +105,26 @@ var TaxEstimator = React.createClass({
                             });
                         })(TaxRates.main, this.state.assessedValue)}
                         </tbody>
+                        <tbody>
+                        {this.state.optionalTaxes.filter(function(o){return o.selected;}).map(function(option){
+                            return <TaxRow key={option.tax} tax={option.tax} rate={option.rate} value={this.state.assessedValue} />;
+                        }.bind(this))}
+                        </tbody>
                     </table>
-                </section>
-            </div>
+                </div>
+                <div>
+                    <table>
+                        <tbody>
+                        {this.state.optionalTaxes.map(function(option){
+                            return <tr>
+                                    <td>{option.tax}</td>
+                                    <td><input type="checkbox" id={option.tax} checked={option.selected} onChange={this.handleSelectOption} /></td>
+                                </tr>;
+                        }.bind(this))}
+                        </tbody>
+                    </table>
+                </div>
+            </section>
         );
     }
 });

@@ -53,7 +53,7 @@ gulp.task('css',['clean:built'], function(){
     .pipe(gulp.dest('../built'));
 });
 
-gulp.task('concat-js',['react-prod','vendor','clean:built'],function(){
+gulp.task('concat-js',['react','vendor','clean:built'],function(){
     return gulp.src('./tmp/**/*.js')
     .pipe(order([
         'vendor/*.js',

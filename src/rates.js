@@ -8,6 +8,7 @@ TaxRates = {
         "BC Transit":	0.2595 
     },
     optional: {
-        "Random Local Service": 0.25
+        "Local Service 1": 0.25,
+        "Local Service 2": 0.3
     }
 };
