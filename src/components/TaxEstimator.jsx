@@ -13,12 +13,35 @@ var TaxRow = React.createClass({
     }
 });
 
+var TaxSum = React.createClass({
+    render:function(){
+        var totalRate = (function(rates){
+            return Object.getOwnPropertyNames(rates).reduce(function(a,k){
+                return a + rates[k];
+            },0);
+        })(this.props.rates);
+        var amount = (function(rates, value){
+            return Object.getOwnPropertyNames(rates).reduce(function(a,k){
+                return a + (rates[k] * (value/1000));
+            },0);
+        })(this.props.rates, this.props.value).toFixed(2);
+        return (
+            <tr>
+                <th>Total</th>
+                <th>{totalRate}</th>
+                <th>${amount}</th>
+            </tr>
+        );
+    }
+});
+
 var TaxEstimator = React.createClass({
     getInitialState: function(){
         return {
             assessedValue:200000,
             taxRates: {
-                "General Tax": 5
+                "General Tax": 5,
+                "Test Tax": 2.4
             }
         };
     },
@@ -44,11 +67,14 @@ var TaxEstimator = React.createClass({
                                 <th>Amount</th>
                             </tr>
                         </thead>
+                        <tfoot>
+                            <TaxSum rates={this.state.taxRates} value={this.state.assessedValue} /> 
+                        </tfoot>
                         <tbody>
                         {(function(rates, value){
                             return Object.getOwnPropertyNames(rates).map(function(k){
                                 return <TaxRow key={k} tax={k} rate={rates[k]} value={value} />;
-                            })
+                            });
                         })(this.state.taxRates, this.state.assessedValue)}
                         </tbody>
                     </table>
