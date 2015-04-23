@@ -1,0 +1,9 @@
+table.tax-rate-table {
+    width:100%;
+}
+table.tax-rate-table .number-column {
+    text-align: right;
+}
+table.tax-rate-table .text-column {
+    text-align: left;
+}
