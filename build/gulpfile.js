@@ -4,6 +4,7 @@ var uglify = require('gulp-uglify');
 var order = require('gulp-order');
 var concat = require('gulp-concat');
 var del = require('del');
+var autoprefixer = require('gulp-autoprefixer');
 
 
 gulp.task('clean:tmp', function (cb) {
@@ -50,6 +51,7 @@ gulp.task('rates',['clean:built'], function(){
 
 gulp.task('css',['clean:built'], function(){
     return gulp.src('../src/tax-estimator.css')
+    .pipe(autoprefixer())
     .pipe(gulp.dest('../built'));
 });
 
