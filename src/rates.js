@@ -1,6 +1,8 @@
 ResidentialTaxRates = {
     main: {
-        "General": 4.4414,
+        "General": 2.7811,
+        "Debt": 0.1431,
+        "Police": 1.5172,
         "Regional District": 0.2992,
         "Hospitals" : 0.3014,
         "Asst. Authority": 0.0596,
@@ -15,7 +17,9 @@ ResidentialTaxRates = {
 
 BusinessTaxRates = {
     main: {
-        "General": 13.8749,
+        "General": 5.1464,
+        "Debt": 0.2648,
+        "Police":2.8076,
         "Regional District": 0.9346,
         "Hospitals" : 1.0247,
         "Asst. Authority": 0.1679,
