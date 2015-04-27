@@ -24,6 +24,6 @@ table.tax-rate-table .text-column {
     transition: max-height 0.5s cubic-bezier(0, 1.05, 0, 1);
 }
 
-.striken {
-    text-decoration: line-through;
+.not-included {
+    opacity: 0.4;
 }

@@ -10,8 +10,8 @@ ResidentialTaxRates = {
         "BC Transit":	0.2595 
     },
     optional: {
-        "Local Service 1": 0.25,
-        "Local Service 2": 0.3
+        "BIA Hotel": 0.00032440,
+        "BIA Non-Hotel": 0.00064889
     }
 };
 
@@ -27,6 +27,7 @@ BusinessTaxRates = {
         "BC Transit":	1.2586
     },
     optional: {
-        "Local Service 1": 0.25
+        "BIA Hotel": 0.00032440,
+        "BIA Non-Hotel": 0.00064889
     }
 };

@@ -30,7 +30,7 @@ var TaxRow = React.createClass({
     classNames: function(base){
         var ba = base.split(' ');
         if(!!this.props.optional && !this.props.included){
-            ba.push('striken')
+            ba.push('not-included')
         }
         return ba.join(' ');
     },
@@ -40,7 +40,7 @@ var TaxRow = React.createClass({
             <tr>
                 <td className="text-column">{this.taxLabel()}</td>
                 <td className={this.classNames('number-column ')}>{this.props.rate}</td>
-                <td className="number-column">${amount}</td>
+                <td className={this.classNames('number-column ')}>${amount}</td>
             </tr>
         );
     }
