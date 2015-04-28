@@ -165,7 +165,7 @@ var TaxTable = React.createClass({
             amountsForNonValueTaxes: updatedAmounts
         });
     },
-    handleChangeAmountForNonValueTaxes(tax,amount){
+    handleChangeAmountForNonValueTaxes:function(tax,amount){
         var updatedAmounts = this.state.amountsForNonValueTaxes;
         updatedAmounts[tax] = amount;
         this.setState({
