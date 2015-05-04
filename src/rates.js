@@ -13,7 +13,7 @@ ResidentialTaxRates = {
         "BIA Hotel": 0.00032440,
         "BIA Non-Hotel": 0.00064889,
         "Boulevard":{"per sq. M":2.50},
-        "Sewer": {"by frontage M": 2.65}
+        "Sewer": {"per frontage M": 2.65}
     }
 };
 
@@ -32,6 +32,6 @@ BusinessTaxRates = {
         "BIA Hotel": 0.00032440,
         "BIA Non-Hotel": 0.00064889,
         "Boulevard":{"per sq. M":2.50},
-        "Sewer": {"by frontage M": 2.65}
+        "Sewer": {"per frontage M": 2.65}
     }
 };
