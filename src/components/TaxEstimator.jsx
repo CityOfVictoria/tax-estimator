@@ -77,20 +77,19 @@ var TaxRow = React.createClass({
             return this.props.rate;
         }
     },
-    classNames: function(base){
-        var ba = base.split(' ');
+    styles: function(base){
         if(!!this.props.optional && !this.props.included){
-            ba.push('not-included')
+            base.opacity=0.4;
         }
-        return ba.join(' ');
+        return base;
     },
     render:function(){
         var amount = this.calculateAmount().toFixed(2);
         return (
             <tr>
-                <td className="text-column">{this.taxLabel()}</td>
-                <td className={this.classNames('number-column ')}>{this.getRate()}</td>
-                <td className={this.classNames('number-column ')}>${amount}</td>
+                <td style={{textAlign:'left'}}>{this.taxLabel()}</td>
+                <td style={this.styles({textAlign:'right'})}>{this.getRate()}</td>
+                <td style={this.styles({textAlign:'right'})}>${amount}</td>
             </tr>
         );
     }
@@ -131,9 +130,9 @@ var TaxSum = React.createClass({
     render:function(){
         return (
             <tr>
-                <th className="text-column">Total</th>
-                <th className="number-column">{this.calculateTotalRate()}</th>
-                <th className="number-column">${this.calculateTotalAmount().toFixed(2)}</th>
+                <th style={{textAlign:'left'}}>Total</th>
+                <th style={{textAlign:'right'}}>{this.calculateTotalRate()}</th>
+                <th style={{textAlign:'right'}}>${this.calculateTotalAmount().toFixed(2)}</th>
             </tr>
         );
     }
@@ -177,12 +176,12 @@ var TaxTable = React.createClass({
         return (
             <section>
                 <div>                    
-                    <table className="tax-rate-table">
+                <table style={{width:'100%'}}>
                         <thead>
                             <tr>
-                                <th className="text-column">Tax</th>
-                                <th className="number-column">Rate</th>
-                                <th className="number-column">Amount</th>
+                                <th style={{textAlign:'left'}}>Tax</th>
+                                <th style={{textAlign:'right'}}>Rate</th>
+                                <th style={{textAlign:'right'}}>Amount</th>
                             </tr>
                         </thead>
                         <tfoot>
@@ -243,7 +242,7 @@ var TaxEstimator = React.createClass({
     renderRateTableSelectors:function(){
         var ks = Object.getOwnPropertyNames(this.props.rates);
         return ks.map(function(k){
-            return <span className="rateTableTab">
+            return <span>
                 <label htmlFor={'rateTable-'+k}>{k}</label>
                 <input type="radio" name="selectedRateTable" id={'rateTable-'+k} checked={this.state.selectedRateTable==k} onChange={this.handleChangeSelectedRateTable}/>
             </span>;
@@ -265,10 +264,21 @@ var TaxEstimator = React.createClass({
     }
 });
 
+function insertAfter(referenceNode, newNode) {
+    referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
+}
+
+var taxnode = document.createElement('div');
+var currentScript = document.currentScript || (function() {
+      var scripts = document.getElementsByTagName('script');
+      return scripts[scripts.length - 1];
+    })();
+insertAfter(currentScript, taxnode);
+
 React.render(
     React.createElement(TaxEstimator,{rates:{
         "Residential": ResidentialTaxRates,
         "Business": BusinessTaxRates
     }})
-    , document.querySelector('tax-estimator')
+    , taxnode
 );
