@@ -84,12 +84,12 @@ var TaxRow = React.createClass({
         return base;
     },
     render:function(){
-        var amount = this.calculateAmount().toFixed(2);
+        var amount = accounting.formatMoney(this.calculateAmount());
         return (
             <tr>
                 <td style={{textAlign:'left'}}>{this.taxLabel()}</td>
                 <td style={this.styles({textAlign:'right'})}>{this.getRate()}</td>
-                <td style={this.styles({textAlign:'right'})}>${amount}</td>
+                <td style={this.styles({textAlign:'right'})}>{amount}</td>
             </tr>
         );
     }
@@ -125,14 +125,14 @@ var TaxSum = React.createClass({
             return a + (this.props.included[k] ? TaxCalculator.calculate(this.props.optionalRates[k], this.props.value, this.props.amounts[k]): 0);
         }.bind(this),0.0);
         
-        return base + optional;
+        return accounting.formatMoney(base + optional);
     },
     render:function(){
         return (
             <tr>
                 <th style={{textAlign:'left'}}>Total</th>
                 <th style={{textAlign:'right'}}>{this.calculateTotalRate()}</th>
-                <th style={{textAlign:'right'}}>${this.calculateTotalAmount().toFixed(2)}</th>
+                <th style={{textAlign:'right'}}>{this.calculateTotalAmount()}</th>
             </tr>
         );
     }
@@ -253,11 +253,11 @@ var TaxEstimator = React.createClass({
             <section>
                 <section>
                     <label htmlFor="assessedValue">Assessed Value </label>
-                    <input id="assessedValue" type="number" value={this.state.assessedValue} onChange={this.handleChangeAssessedValue}/>
+                    <input id="assessedValue" value={this.state.assessedValue} onChange={this.handleChangeAssessedValue}/>
                 </section>
                 <section>
                     {this.renderRateTableSelectors()}
-                    <TaxTable assessedValue={this.state.assessedValue} taxRates={this.props.rates[this.state.selectedRateTable]} />
+                    <TaxTable assessedValue={accounting.unformat(this.state.assessedValue)} taxRates={this.props.rates[this.state.selectedRateTable]} />
                 </section>
             </section>
         );
@@ -279,6 +279,5 @@ React.render(
     React.createElement(TaxEstimator,{rates:{
         "Residential": ResidentialTaxRates,
         "Business": BusinessTaxRates
-    }})
-    , taxnode
+    }}), taxnode
 );

@@ -35,7 +35,7 @@ gulp.task('react-prod',['clean:tmp'],function(){
     .pipe(gulp.dest('./tmp'));
 });
 
-var vendorFiles = ['../src/vendor/react.min.js']
+var vendorFiles = ['../src/vendor/*.min.js']
 gulp.task('vendor',['clean:tmp'],function(){
     return gulp.src(vendorFiles)
     //.pipe(react())
