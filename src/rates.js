@@ -1,6 +1,6 @@
 ResidentialTaxRates = {
     main: {
-        "General, including Vic PD": 4.4414,
+        "City of Victoria municipal taxes, including VicPD": 4.4414,
         "School District": 1.7524,
         "Capital Regional District": 0.2992,
         "Capital Regional Hospital District" : 0.3014,
@@ -14,7 +14,7 @@ ResidentialTaxRates = {
 
 BusinessTaxRates = {
     main: {
-        "General, including Vic PD": 13.8749 ,
+        "City of Victoria municipal taxes, including VicPD": 13.8749 ,
         "School District": 5.8,
         "Capital Regional District": 0.9346,
         "Capital Regional Hospital District" : 0.7384,
@@ -23,7 +23,7 @@ BusinessTaxRates = {
         "BC Transit": 1.2586  
     },
     optional: {
-        "Downtown Victoria Business Association, Hotel": 0.00032440,
-        "Downtown Victoria Business Association, Non-Hotel": 0.00064889
+        "DVBA, Hotel": 0.00032440*1000,
+        "DVBA, Non-Hotel": 0.00064889*1000
     }
 };
