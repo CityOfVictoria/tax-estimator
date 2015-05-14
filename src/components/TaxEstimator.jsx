@@ -222,7 +222,7 @@ var TaxTable = React.createClass({
 var TaxEstimator = React.createClass({
     getInitialState: function(){
         return {
-            assessedValue:200000,
+            assessedValue:this.props.initialDefaultValue,
             selectedRateTable:'Residential'
         };
     },
@@ -279,5 +279,5 @@ React.render(
     React.createElement(TaxEstimator,{rates:{
         "Residential": ResidentialTaxRates,
         "Business": BusinessTaxRates
-    }}), taxnode
+        }, initialDefaultValue:'$0.00'}), taxnode
 );
