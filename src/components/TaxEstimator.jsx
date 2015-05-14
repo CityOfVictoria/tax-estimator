@@ -241,12 +241,15 @@ var TaxEstimator = React.createClass({
     },
     renderRateTableSelectors:function(){
         var ks = Object.getOwnPropertyNames(this.props.rates);
-        return ks.map(function(k){
-            return <span>
+        var selectors = ks.map(function(k){
+            return <td>
                 <label htmlFor={'rateTable-'+k}>{k}</label>
                 <input type="radio" name="selectedRateTable" id={'rateTable-'+k} checked={this.state.selectedRateTable==k} onChange={this.handleChangeSelectedRateTable}/>
-            </span>;
+            </td>;
         }.bind(this));
+        return <table style={{borderWidth:0}}><tr>
+            {selectors}
+            </tr></table>
     },
     render:function(){
         return (
