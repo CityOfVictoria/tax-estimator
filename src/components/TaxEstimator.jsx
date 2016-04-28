@@ -1,4 +1,7 @@
 var TaxCalculator = {
+    round: function round(value, decimals) {
+        return Number(Math.round(value+'e'+decimals)+'e-'+decimals);
+    },
     isNotAssessedValueTax: function isNotAssessedValueTax(rate){
         return typeof(rate)=='object';
     },
@@ -13,7 +16,7 @@ var TaxCalculator = {
         if (this.isNotAssessedValueTax(rate)){
             return this.getNonAssessedValueTaxRate(rate) * amount;
         }
-        return rate * (value/1000);
+        return this.round(rate * (value/1000),2);
     }
 };
 
@@ -267,6 +270,45 @@ var TaxEstimator = React.createClass({
     }
 });
 
+
+/* 
+    Tax Comparer
+    Compares two years of taxes (estimated)
+*/
+var CompareEstimates = React.createClass({
+getInitialState: function(){
+    return {
+    differences:{value:0, taxes:0}
+    };
+},
+sumTaxes: function(aorb){
+    var base = Object.getOwnPropertyNames(this.props.rates[aorb].baseRates).reduce(function(a,k){
+        return a + TaxCalculator.calculate(this.props.rates[aorb].baseRates[k], this.props.assessments[aorb], 0);
+    }.bind(this),0.0);
+
+    var optional = Object.getOwnPropertyNames(this.props.optionalRates).reduce(function(a,k){
+        return a + (this.props.included[k] ? TaxCalculator.calculate(this.props.rates[aorb].optionalRates[k], this.props.assessments[aorb], 0): 0);
+    }.bind(this),0.0);
+
+    return base + optional; 
+},
+calculateDifference: function(){
+    if(!!this.props.rates && !!this.props.rates.a){
+        var rs = Object.
+    }
+},
+handleValueChange: function(e){
+    this.setState({
+    assessmentA: (e.target.id=='a'?e.target.value:this.state.assessmentA),
+    assessmentB: (e.target.id=='b'?e.target.value:this.state.assessmentB),
+    
+    })
+},
+render: function(){
+    
+}
+});
+
 function insertAfter(referenceNode, newNode) {
     referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
 }
@@ -281,6 +323,6 @@ insertAfter(currentScript, taxnode);
 React.render(
     React.createElement(TaxEstimator,{rates:{
         "Residential": ResidentialTaxRates,
-        "Business": BusinessTaxRates
+        "Business (Class 6)": BusinessTaxRates
         }, initialDefaultValue:'$0.00'}), taxnode
 );
