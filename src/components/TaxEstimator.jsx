@@ -1,4 +1,7 @@
 var TaxCalculator = {
+    round: function round(value, decimals) {
+        return Number(Math.round(value+'e'+decimals)+'e-'+decimals);
+    },
     isNotAssessedValueTax: function isNotAssessedValueTax(rate){
         return typeof(rate)=='object';
     },
@@ -13,7 +16,7 @@ var TaxCalculator = {
         if (this.isNotAssessedValueTax(rate)){
             return this.getNonAssessedValueTaxRate(rate) * amount;
         }
-        return rate * (value/1000);
+        return this.round(rate * (value/1000),2);
     }
 };
 
@@ -281,6 +284,6 @@ insertAfter(currentScript, taxnode);
 React.render(
     React.createElement(TaxEstimator,{rates:{
         "Residential": ResidentialTaxRates,
-        "Business": BusinessTaxRates
+        "Business (Class 6)": BusinessTaxRates
         }, initialDefaultValue:'$0.00'}), taxnode
 );
