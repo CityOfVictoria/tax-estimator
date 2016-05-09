@@ -1,7 +1,8 @@
+function round(value, decimals){
+    return Number(Math.round(value+'e'+decimals)+'e-'+decimals);
+}
+
 var TaxCalculator = {
-    round: function round(value, decimals) {
-        return Number(Math.round(value+'e'+decimals)+'e-'+decimals);
-    },
     isNotAssessedValueTax: function isNotAssessedValueTax(rate){
         return typeof(rate)=='object';
     },
@@ -16,7 +17,7 @@ var TaxCalculator = {
         if (this.isNotAssessedValueTax(rate)){
             return this.getNonAssessedValueTaxRate(rate) * amount;
         }
-        return this.round(rate * (value/1000),2);
+        return round(rate * (value/1000),2);
     }
 };
 
@@ -117,7 +118,7 @@ var TaxSum = React.createClass({
             return a + (this.props.included[k] ? (TaxCalculator.isNotAssessedValueTax(this.props.optionalRates[k]) ? 0: this.props.optionalRates[k]): 0);
         }.bind(this),0.0);
         
-        return base + optional;
+        return round(base + optional,4);
     },
     calculateTotalAmount: function(){
         var base = Object.getOwnPropertyNames(this.props.baseRates).reduce(function(a,k){
