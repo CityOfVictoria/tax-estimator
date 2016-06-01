@@ -285,6 +285,6 @@ insertAfter(currentScript, taxnode);
 React.render(
     React.createElement(TaxEstimator,{rates:{
         "Residential": ResidentialTaxRates,
-        "Business (Class 6)": BusinessTaxRates
+        "Business": BusinessTaxRates
         }, initialDefaultValue:'$0.00'}), taxnode
 );
