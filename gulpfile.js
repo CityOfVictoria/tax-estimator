@@ -35,8 +35,8 @@ gulp.task('vendor',['clean:tmp'],function(){
     .pipe(gulp.dest('./tmp/vendor'));
 });
 
-gulp.task('embed',['clean:dist'],function(){
-    return gulp.src('./src/*.html')
+gulp.task('rate-example',['clean:dist'],function(){
+    return gulp.src('./src/rates.js.example')
     .pipe(gulp.dest('./dist'));
 });
 
@@ -52,4 +52,4 @@ gulp.task('concat-js',['react','vendor','clean:dist'],function(){
     .pipe(gulp.dest('./dist'));
 });
 
-gulp.task('default',['embed','concat-js']);
+gulp.task('default',['rate-example','concat-js']);
