@@ -28,13 +28,6 @@ gulp.task('react',['clean:tmp'],function(){
     .pipe(uglify())
     .pipe(gulp.dest('./tmp'));
 });
-gulp.task('react-prod',['clean:tmp'],function(){
-    return gulp.src(reactFiles)
-    .pipe(react())
-    .pipe(uglify())
-    .pipe(gulp.dest('./tmp'));
-});
-
 var vendorFiles = ['./src/vendor/*.min.js']
 gulp.task('vendor',['clean:tmp'],function(){
     return gulp.src(vendorFiles)
@@ -44,11 +37,6 @@ gulp.task('vendor',['clean:tmp'],function(){
 
 gulp.task('embed',['clean:dist'],function(){
     return gulp.src('./src/*.html')
-    .pipe(gulp.dest('./dist'));
-});
-
-gulp.task('rates',['clean:dist'], function(){
-    return gulp.src('./src/rates.js')
     .pipe(gulp.dest('./dist'));
 });
 
@@ -64,4 +52,4 @@ gulp.task('concat-js',['react','vendor','clean:dist'],function(){
     .pipe(gulp.dest('./dist'));
 });
 
-gulp.task('default',['embed','concat-js','rates']);
+gulp.task('default',['embed','concat-js']);
