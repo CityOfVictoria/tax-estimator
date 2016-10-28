@@ -26,9 +26,17 @@ These taxes depend on a property's specific circumstances. The user can add or r
 }``
 
 ## Install
+In both methods, copy the content of the release and a configured rates.js to you web server.
+
+### Directly
 On your web page where you want the tax estimator, load the two scripts: rates.js then tax-estimator.js. Make sure you load rates.js first.
 
-``<script type="text/javascript" src="./rates.js"></script> <script type="text/javascript" src="./tax-estimator.js"></script>``
+``<script type="text/javascript" src="your-install-folder/rates.js"></script> <script type="text/javascript" src="your-install-folder/tax-estimator.js"></script>``
+
+### IFrame
+Some CMSs do not allow direct scripts, but will allow an IFrame. Included is a small web page that includes the tax estimator that you can iframe into your CMS.
+
+``<iframe src="your-install-folder/index.html"/>``
 
 ## Build
 Install the dependencies
@@ -39,3 +47,6 @@ then run gulp
 
 ``gulp``
 
+## Shout outs
+License GPLv3
+Copyright (C) 2015 City of Victoria

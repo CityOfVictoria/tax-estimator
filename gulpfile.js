@@ -35,8 +35,8 @@ gulp.task('vendor',['clean:tmp'],function(){
     .pipe(gulp.dest('./tmp/vendor'));
 });
 
-gulp.task('rate-example',['clean:dist'],function(){
-    return gulp.src('./src/rates.js.example')
+gulp.task('assets',['clean:dist'],function(){
+    return gulp.src('./src/assets/**')
     .pipe(gulp.dest('./dist'));
 });
 
