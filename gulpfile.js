@@ -21,30 +21,25 @@ gulp.task('clean:dist', function (cb) {
   ], {force:true}, cb);
 });
 
-var reactFiles = ['./src/**/*.jsx','!./src/vendor/**'];
+var reactFiles = ['src/components/*.jsx'];
 gulp.task('react',['clean:tmp'],function(){
     return gulp.src(reactFiles)
     .pipe(react())
     .pipe(uglify())
     .pipe(gulp.dest('./tmp'));
 });
-var vendorFiles = ['./src/vendor/*.min.js']
-gulp.task('vendor',['clean:tmp'],function(){
-    return gulp.src(vendorFiles)
-    //.pipe(react())
-    .pipe(gulp.dest('./tmp/vendor'));
-});
 
 gulp.task('assets',['clean:dist'],function(){
-    return gulp.src('./src/assets/**')
+    return gulp.src('src/assets/**')
     .pipe(gulp.dest('./dist'));
 });
 
-gulp.task('concat-js',['react','vendor','clean:dist'],function(){
-    return gulp.src('./tmp/**/*.js')
+var vendorFiles = []
+gulp.task('concat-js',['react','clean:dist'],function(){
+    return gulp.src(['src/vendor/*.min.js','tmp/**/*.js'])
     .pipe(order([
-        'vendor/*.js',
-        '**/*.js'
+        'src/vendor/*.min.js',
+        'tmp/**/*.js'
     ]))
     .pipe(concat('tax-estimator.js'))
     .pipe(wrap('(function(){\n<%= contents %>\n})();'))
@@ -52,4 +47,4 @@ gulp.task('concat-js',['react','vendor','clean:dist'],function(){
     .pipe(gulp.dest('./dist'));
 });
 
-gulp.task('default',['rate-example','concat-js']);
+gulp.task('default',['assets','concat-js']);
