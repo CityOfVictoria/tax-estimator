@@ -1,2 +1,0 @@
-<script src="https://etownhall.victoria.ca/widgets/tax-estimate/rates.js"></script>
-<script src="https://etownhall.victoria.ca/widgets/tax-estimate/tax-estimator.js"></script>
